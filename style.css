@@ -1,0 +1,209 @@
+*{box-sizing:border-box;font-family:system-ui,Segoe UI,Apple SD Gothic Neo,sans-serif}
+
+:root{
+  --bg:#0b0b10;--panel:#12121a;--bd:#222;--bd2:#2a2a3a;--txt:#eaeaf0;
+  --accent:#0064FF; /* Toss Blue */
+}
+:root[data-theme="light"]{
+  --bg:#f6f7fb;--panel:#ffffff;--bd:#e7e8ef;--bd2:#d6d8e3;--txt:#0e0f14;
+}
+
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--txt)}
+
+.topbar{
+  padding:14px 16px;border-bottom:1px solid var(--bd);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+h1{margin:0;font-size:18px}
+.topbar-right{display:flex;align-items:center;gap:10px}
+
+.layout{
+  display:grid;
+  grid-template-columns: 360px 1fr;
+  gap:14px;
+  padding:14px;
+  align-items:start;
+}
+
+.panel{
+  background:var(--panel);
+  border:1px solid var(--bd);
+  border-radius:14px;
+  padding:12px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  position:sticky;
+  top:12px;
+}
+
+.workspace{display:flex;flex-direction:column;gap:12px;min-width:0}
+
+.stage{
+  position:relative;
+  background:var(--panel);
+  border:1px solid var(--bd);
+  border-radius:14px;
+  min-height:70vh;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+}
+
+#canvas{width:100%;height:100%;display
+:block}
+.hint{position:absolute;opacity:.7;font-size:14px}
+
+label{display:flex;justify-content:space-between;gap:10px;align-items:center}
+input[type="range"]{width:170px}
+.grid2{display:grid;grid-template-columns:1fr;gap:8px}
+
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row.bottom{margin-top:4px}
+.chk{gap:8px}
+.q{gap:8px}
+
+/* ✅ 작은 버튼(좌우/상하/리셋/자르기) */
+button,select{
+  background:#1a1a26;color:var(--txt);
+  border:1px solid var(--bd2);
+  border-radius:10px;
+  padding:8px 10px;
+  cursor:pointer;
+  line-height:1;
+  min-height:34px;
+  white-space:nowrap;
+}
+:root[data-theme="light"] button,
+:root[data-theme="light"] select{background:#f2f3f8}
+
+/* ✅ 큰 버튼(이미지선택/되돌리기/다운로드 등) */
+.btn{
+  background:#1a1a26;color:var(--txt);
+  border:1px solid var(--bd2);
+  border-radius:12px;
+  padding:12px 12px;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  letter-spacing:.2px;
+  user-select:none;
+  line-height:1;
+  min-height:44px;
+  white-space:nowrap;
+}
+:root[data-theme="light"] .btn{background:#f2f3f8}
+.btn:active{transform:translateY(1px)}
+.btn.full{width:100%}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+
+/* 토글 ON: 큰 버튼(비교) */
+.btn.toggle.on{background:var(--accent);border-color:var(--accent);color:#fff}
+/* 토글 ON: 작은 버튼(자르기) */
+button.toggle.on{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* 강조 버튼: Toss Blue */
+.btn.accent,
+:root[data-theme="light"] .btn.accent{
+  color:#fff;
+  border:1px solid rgba(255,255,255,.16);
+  background: linear-gradient(180deg, #0064FF, #0052D6);
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.32),
+    inset 0 1px 0 rgba(255,255,255,.18);
+  text-shadow: 0 1px 0 rgba(0,0,0,.18);
+}
+.btn.accent:hover{ filter: brightness(1.05); }
+.btn.accent:active{ transform: translateY(1px); filter: brightness(.98); }
+.btn.accent:disabled{
+  opacity:.62;color:rgba(255,255,255,.92);
+  box-shadow:none;border-color: rgba(255,255,255,.10);
+}
+
+.iconbtn{
+  background:transparent;
+  border:1px solid var(--bd2);
+  color:var(--txt);
+  border-radius:10px;
+  padding:8px 10px;
+  cursor:pointer;
+}
+:root[data-theme="light"] .iconbtn{background:#ffffff}
+
+/* compare bar */
+.comparebar{
+  display:flex;align-items:center;gap:10px;
+  border:1px dashed var(--bd2);
+  border-radius:12px;
+  padding:10px;
+  opacity:.95;
+}
+.comparebar span{font-size:12px;opacity:.75}
+.comparebar input[type="range"]{flex:1;width:auto}
+
+/* settings drawer */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:50}
+.settingsdrawer{
+  position:fixed;top:0;right:0;height:100%;width:320px;
+  background:var(--panel);
+  border-left:1px solid var(--bd);
+  z-index:60;
+  transform:translateX(110%);
+  transition:transform .18s ease;
+  display:flex;flex-direction:column;
+}
+.settingsdrawer.open{transform:translateX(0)}
+.shead{display:flex;align-items:center;justify-content:space-between;padding:12px;border-bottom:1px solid var(--bd)}
+.stitle{font-weight:900}
+.sbody{padding:12px;display:flex;flex-direction:column;gap:10px}
+.srow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.srow select{width:140px}
+.sw input{transform:scale(1.1)}
+
+/* ✅ Crop UI */
+.crop-overlay{
+  position:absolute;inset:0;z-index:20;
+  cursor:crosshair;
+}
+.crop-help{
+  position:absolute;left:12px;top:12px;
+  padding:8px 10px;
+  border-radius:12px;
+  background:rgba(0,0,0,.45);
+  border:1px solid rgba(255,255,255,.14);
+  color:#fff;font-size:12px;
+  backdrop-filter: blur(6px);
+  pointer-events:none;
+}
+.crop-box{
+  position:absolute;
+  border:2px solid rgba(255,255,255,.95);
+  border-radius:12px;
+  box-shadow: 0 0 0 9999px rgba(0,0,0,.45);
+  cursor:move;
+}
+.crop-box::after{
+  content:"";
+  position:absolute;inset:0;
+  border-radius:10px;
+  background:
+    linear-gradient(to right, transparent 33.333%, rgba(255,255,255,.75) 33.333%, rgba(255,255,255,.75) calc(33.333% + 1px), transparent calc(33.333% + 1px)),
+    linear-gradient(to right, transparent 66.666%, rgba(255,255,255,.75) 66.666%, rgba(255,255,255,.75) calc(66.666% + 1px), transparent calc(66.666% + 1px)),
+    linear-gradient(to bottom, transparent 33.333%, rgba(255,255,255,.75) 33.333%, rgba(255,255,255,.75) calc(33.333% + 1px), transparent calc(33.333% + 1px)),
+    linear-gradient(to bottom, transparent 66.666%, rgba(255,255,255,.75) 66.666%, rgba(255,255,255,.75) calc(66.666% + 1px), transparent calc(66.666% + 1px));
+  pointer-events:none;
+  opacity:.9;
+}
+
+:root[data-reduce-motion="true"] *{transition:none !important;animation:none !important;}
+:root[data-compact="true"] .layout{grid-template-columns:320px 1fr}
+:root[data-compact="true"] .panel{padding:10px}
+:root[data-compact="true"] input[type="range"]{width:150px}
+
+@media (max-width: 900px){
+  .layout{grid-template-columns:1fr}
+  .panel{position:static}
+}
