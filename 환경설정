@@ -1,0 +1,15 @@
+#powershell기준
+#프로젝트 폴더로 이동
+cd C:\Users\Admin\mini-editor
+#가상환경 생성
+py -m venv .venv
+#가상환경 활성화
+.\.venv\Scripts\Activate.ps1
+#만약 안되면
+#Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+#pip
+python -m pip install --upgrade pip
+#requirements 설치
+pip install -r requirements.txt
+#서버 실행
+uvicorn app.main:app --reload
