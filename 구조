@@ -1,0 +1,10 @@
+mini-editor/
+├─ app/
+│  ├─ main.py
+│  └─ static/
+│     ├─ index.html
+│     ├─ style.css
+│     └─ app.js
+├─ requirements.txt
+├─ .gitignore
+└─ README.md
