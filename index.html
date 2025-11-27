@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini Editor</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Mini Editor</h1>
+    <div class="topbar-right">
+      <button id="openSettings" class="iconbtn" type="button" aria-expanded="false" aria-controls="settingsDrawer">
+        ⚙ 설정
+      </button>
+    </div>
+  </header>
+
+  <div id="overlay" class="overlay" hidden></div>
+  <aside id="settingsDrawer" class="settingsdrawer" aria-hidden="true">
+    <div class="shead">
+      <div class="stitle">일반 설정</div>
+      <button id="closeSettings" class="iconbtn" type="button">✕</button>
+    </div>
+    <div class="sbody">
+      <label class="srow">
+        <span>테마</span>
+        <select id="theme">
+          <option value="system">시스템</option>
+          <option value="dark">다크</option>
+          <option value="light">라이트</option>
+        </select>
+      </label>
+
+      <label class="srow">
+        <span>강조색</span>
+        <select id="accent">
+          <option value="blue">블루</option>
+          <option value="green">그린</option>
+          <option value="purple">퍼플</option>
+          <option value="orange">오렌지</option>
+          <option value="pink">핑크</option>
+        </select>
+      </label>
+
+      <label class="srow sw">
+        <span>모션 줄이기</span>
+        <input id="reduceMotion" type="checkbox" />
+      </label>
+
+      <label class="srow sw">
+        <span>컴팩트 모드</span>
+        <input id="compact" type="checkbox" />
+      </label>
+
+      <button id="resetSettings" class="btn full" type="button">설정 초기화</button>
+    </div>
+  </aside>
+
+  <main class="layout">
+    <section class="panel">
+      <input id="file" type="file" accept="image/*" hidden />
+      <label for="file" class="btn accent full">이미지 선택</label>
+
+      <div class="row">
+        <button id="undo" class="btn" type="button" title="Ctrl+Z">되돌리기</button>
+        <button id="redo" class="btn" type="button" title="Ctrl+Y / Ctrl+Shift+Z">다시하기</button>
+        <button id="auto" class="btn" type="button">자동보정</button>
+        <button id="compare" class="btn toggle" type="button" aria-pressed="false">비교</button>
+      </div>
+
+      <div id="compareBar" class="comparebar" hidden>
+        <span>Before</span>
+        <input id="comparePos" type="range" min="0" max="100" value="50" />
+        <span>After</span>
+      </div>
+
+      <!-- ✅ 작은 버튼 그룹: 자르기도 같은 크기 -->
+      <div class="row">
+        <button id="flipH" type="button">좌우반전</button>
+        <button id="flipV" type="button">상하반전</button>
+        <button id="reset" type="button">리셋</button>
+        <button id="crop" class="toggle" type="button" aria-pressed="false">자르기</button>
+      </div>
+
+      <div class="grid2">
+        <label>회전 <input id="rotate" type="range" min="-180" max="180" value="0"></label>
+        <label>크기 <input id="scale" type="range" min="10" max="300" value="100"></label>
+
+        <label>밝기 <input id="brightness" type="range" min="0" max="300" value="100"></label>
+        <label>대비 <input id="contrast" type="range" min="0" max="300" value="100"></label>
+
+        <label>채도 <input id="saturation" type="range" min="0" max="300" value="100"></label>
+        <label>선명도 <input id="sharpness" type="range" min="0" max="400" value="100"></label>
+
+        <label>블러 <input id="blur" type="range" min="0" max="20" value="0"></label>
+      </div>
+
+      <div class="row">
+        <label class="chk"><input id="grayscale" type="checkbox"> 흑백</label>
+        <label class="chk"><input id="invert" type="checkbox"> 반전</label>
+      </div>
+
+      <div class="row bottom">
+        <select id="fmt">
+          <option value="png">PNG</option>
+          <option value="jpeg">JPEG</option>
+          <option value="webp">WEBP</option>
+        </select>
+
+        <label class="q">품질 <input id="quality" type="range" min="1" max="100" value="92"></label>
+        <button id="download" class="btn accent" disabled>다운로드</button>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <section class="stage" id="stage">
+        <canvas id="canvas"></canvas>
+        <p class="hint" id="hint">이미지 업로드</p>
+
+        <!-- ✅ Crop overlay -->
+        <div id="cropOverlay" class="crop-overlay" hidden>
+          <div id="cropBox" class="crop-box"></div>
+          <div class="crop-help">
+            드래그=영역선택 · 박스안드래그=이동 · Enter=적용 · Esc=취소
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
